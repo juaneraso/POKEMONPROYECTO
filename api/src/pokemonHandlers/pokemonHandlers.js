@@ -4,7 +4,6 @@ const getPokemonesById = require("../controllers/getPokemonesById");
 
 
 const getPokemonHandler = async (req,res) => {
- 
     try {
        const pokemones = await getPokemones(); 
        res.status(200).json(pokemones); 
