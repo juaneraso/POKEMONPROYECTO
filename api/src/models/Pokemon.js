@@ -14,41 +14,43 @@ module.exports = (database) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
-    imagen:{
+    image:{
       type: DataTypes.STRING,
       allowNull:false,
 
     },
-    vida: {
+    hp: {
       type: DataTypes.INTEGER,      
       allowNull:false,
 
     },
-    ataque:{ 
+    atack:{ 
       type: DataTypes.INTEGER,      
       allowNull:false,
     },
-    defensa:{
+    defense:{
+      type: DataTypes.INTEGER,      
+      allowNull:false,
+    },
+    speed:{
+      type: DataTypes.INTEGER,      
+      allowNull:false,
+
+    },
+    height:{
       type: DataTypes.INTEGER,      
       allowNull:false,
 
     },
-    velocidad:{
-      type: DataTypes.INTEGER,      
-      allowNull:false,
-
-    },
-    altura:{
-      type: DataTypes.INTEGER,      
-      allowNull:false,
-
-
-    },
-    peso:{
+    weight:{
       type: DataTypes.INTEGER,      
       allowNull:false, 
-
+    },
+    created:{
+      type: DataTypes.BOOLEAN,
+      defaultValue:true,
     }    
 
   },{

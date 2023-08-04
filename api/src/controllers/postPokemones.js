@@ -1,10 +1,10 @@
 const {Pokemon} = require('../db');
 
-const postPokemones = async(name,imagen,vida,ataque,defensa,velocidad,altura,peso) =>{
+const postPokemones = async(name,image,hp,atack,defense,speed,height,weight) =>{
 
-    const newPokemon = await Pokemon.create({name,imagen,vida,ataque,defensa,velocidad,altura,peso});
+    const newPokemon = await Pokemon.create({name,image,hp,atack,defense,speed,height,weight});
     return newPokemon;
         
     };
     
-    module.exports = postPokemones ;
+    module.exports = postPokemones ; 

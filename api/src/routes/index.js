@@ -9,9 +9,11 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
-const {getPokemonHandler,postPokemonHandler,getPokemonesByIdHandler} = require("../pokemonHandlers/pokemonHandlers");
+const {getPokemonHandler,postPokemonHandler,getPokemonesByIdHandler,getPokemonDetailsHandler} = require("../pokemonHandlers/pokemonHandlers");
 
 router.get('/pokemones',getPokemonHandler);
+router.get('/pokemones/detail',getPokemonDetailsHandler);
+
 
 router.post('/pokemones',postPokemonHandler);
 
