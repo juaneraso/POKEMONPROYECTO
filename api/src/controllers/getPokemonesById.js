@@ -13,13 +13,13 @@ const getPokemonesById = async (id,source) => {
   }
   
 
-const pokemonName = 'pikachu';
-axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
-  .then(response => {
-    const speed = response.data.stats.find(stat => stat.stat.name === 'speed').base_stat;
-    console.log(`La velocidad de ${pokemonName} es: ${speed}`);
-  })
-  .catch(error => console.error('Error:', error));
+// const pokemonName = 'pikachu';
+// axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+//   .then(response => {
+//     const speed = response.data.stats.find(stat => stat.stat.name === 'speed').base_stat;
+//     console.log(`La velocidad de ${pokemonName} es: ${speed}`);
+//   })
+//   .catch(error => console.error('Error:', error));
 
 
 

@@ -1,14 +1,26 @@
-const {getPokemones,getPokemonByName} = require("../controllers/getPokemones");
+const {getPokemones,getPokemonByName,getPokemonesById} = require("../controllers/getPokemones");
 const postPokemones = require("../controllers/postPokemones");
-const getPokemonesById = require("../controllers/getPokemonesById");
+//const getPokemonesById = require("../controllers/getPokemonesById");
 const getPokemonDetails = require("../controllers/getPokemonDetails");
-
+const getPokemonTypes = require("../controllers/getPokemonTypes");
+const getTypesInterno = require("../controllers/getPokemonTypesInterno");
 
 const getPokemonDetailsHandler = async (req,res) => {
    const {name} = req.query ;
+   
+   //const nameMinuscula = name.toLowerCase();
+ 
+
    const results =  await getPokemonDetails(name);
    res.status(200).json(results);
 };
+
+const getTypesInternoHandler = async (req,res) => {
+   
+   const typesInterno =  await getTypesInterno();
+   res.status(200).json(typesInterno);
+};
+
 
 
 
@@ -32,6 +44,7 @@ const getPokemonHandler = async (req,res) => {
     }
  
  };
+ 
 
  const getPokemonesByIdHandler = async (req,res) => {
 
@@ -48,6 +61,17 @@ const getPokemonHandler = async (req,res) => {
  
  };
  
+ const getPokemonTypesHandler = async (req,res) => {
+   //const {type} = req.query ;
+   try{
+      const types = await getPokemonTypes();  
+      res.status(200).json(types);
+   
+   }catch(error){
+      res.status(400).json({error:error.message});
+   }
+    
+};
 
 
 
@@ -55,6 +79,8 @@ const getPokemonHandler = async (req,res) => {
     getPokemonHandler, 
     postPokemonHandler,
     getPokemonesByIdHandler,
-    getPokemonDetailsHandler
+    getPokemonDetailsHandler,
+    getPokemonTypesHandler,
+    getTypesInternoHandler
    
  }
