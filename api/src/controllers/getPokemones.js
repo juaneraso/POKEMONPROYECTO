@@ -93,6 +93,7 @@ const getPokemonByName = async (name) => {
 
      }
      const apiPokemon = cleanArray([apiPokemones]);
+     return apiPokemon;
 
 
       
