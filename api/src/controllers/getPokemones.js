@@ -1,5 +1,6 @@
-const {Pokemon} = require('../db');
+const {Pokemon,Type} = require('../db');
 const axios = require("axios");
+//const Type = require('../models/Type');
 
 
 // const getPokemones = async () => {
@@ -14,11 +15,12 @@ const cleanArray = (arr)=>
     name:elem.name,
     image:elem.image,
     hp: elem.hp,
-    atack:elem.atack,
+    attack:elem.attack,
     defense:elem.defense,
     speed:elem.speed,
     height:elem.height,
     weight:elem.weight,
+    types:elem.types,
     created:false,
     };
 
@@ -123,19 +125,52 @@ const getPokemonByName = async (name) => {
 
  const getPokemones = async () => {
 
-  const pokemones = await Pokemon.findAll();      
+  const pokemones = await Pokemon.findAll({
+   include:{
+    model: Type,
+    attributes:["name"],
+    through:{
+     attributes:[],
+
+    }
+
+   },
+
+
+  });     
+
+  const formattedPokemones = pokemones.map(pokemon => {
+    return {
+      id: pokemon.id,
+      name: pokemon.name,
+      image: pokemon.image,
+      hp: pokemon.hp,
+      attack: pokemon.attack,
+      defense: pokemon.defense,
+      speed: pokemon.speed,
+      height: pokemon.height,
+      weight: pokemon.weight,
+      created: pokemon.created,
+      types: pokemon.types.map(type => type.name),
+    };
+  });
+  
+ // return formattedPokemones;
+ 
+  
   const apiResponse = await axios.get("https://pokeapi.co/api/v2/pokemon/?limit=30");  
   const pokemonList = apiResponse.data.results;
 
   const allPokemonInfo = await Promise.all(
+
     pokemonList.map(async (pokemon) => {
       const detailResponse = await axios.get(pokemon.url);
-      const { id, name, sprites, stats, height, weight } = detailResponse.data;
+      const { id, name, sprites, stats, height, weight,types} = detailResponse.data;
       const hp = stats.find(stat => stat.stat.name === 'hp').base_stat;
       const attack = stats.find(stat => stat.stat.name === 'attack').base_stat;
       const defense = stats.find(stat => stat.stat.name === 'defense').base_stat;
       const speed = stats.find(stat => stat.stat.name === 'speed').base_stat;
-
+      const pokemonTypes = types.map(typeInfo => typeInfo.type.name);
       return {
         id,
         name,
@@ -146,13 +181,15 @@ const getPokemonByName = async (name) => {
         speed,
         height,
         weight,
+        types : pokemonTypes
+    
       };
     })
   );
     
  const apiPokemones = cleanArray(allPokemonInfo);
 
-  return[...pokemones,...apiPokemones];
+  return[...formattedPokemones,...apiPokemones];
   
 };
 

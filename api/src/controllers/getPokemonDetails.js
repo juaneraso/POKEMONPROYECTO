@@ -27,7 +27,6 @@ const getPokemonDetails = async (pokemonName) => {
     const speed = pokemonDetails.stats.find((stat) => stat.stat.name === 'speed').base_stat;
     const height = pokemonDetails.height;
     const weight = pokemonDetails.weight;
-
     // Puedes hacer cualquier otra operación con los atributos del Pokémon aquí
 
     // Finalmente, devuelves un objeto con todos los atributos del Pokémon

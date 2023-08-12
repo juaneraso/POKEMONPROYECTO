@@ -18,5 +18,4 @@ router.get('/pokemones/:id',getPokemonesByIdHandler);
 router.get('/pokemon/types',getPokemonTypesHandler);
 router.get('/poke/typesinter',getTypesInternoHandler);
 
-
 module.exports = router;

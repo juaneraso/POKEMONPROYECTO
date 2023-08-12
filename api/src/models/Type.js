@@ -4,16 +4,16 @@ module.exports = (database) => {
     // defino el modelo
   
     database.define('type', {
-      id:{
-        type:DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,   
-        primaryKey:true,
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,      
       },
       name: {
         type: DataTypes.STRING,
-        unique:true,
         allowNull: false,
-      }     
+      }
+   
   
     },{
       timestamps:false,

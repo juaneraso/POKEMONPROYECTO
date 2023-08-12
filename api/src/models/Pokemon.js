@@ -8,8 +8,9 @@ module.exports = (database) => {
   database.define('pokemon', {
     id:{
          type:DataTypes.UUID,
-         defaultValue: DataTypes.UUIDV4,   
          primaryKey:true,
+         defaultValue: DataTypes.UUIDV4,   
+        
     },
     name: {
       type: DataTypes.STRING,
@@ -26,7 +27,7 @@ module.exports = (database) => {
       allowNull:false,
 
     },
-    atack:{ 
+    attack:{ 
       type: DataTypes.INTEGER,      
       allowNull:false,
     },

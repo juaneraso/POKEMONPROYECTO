@@ -69,12 +69,5 @@ const getPokemonTypes = async () => {
 
 
 
-
-
-
-
-
-
-
   
 module.exports = getPokemonTypes;

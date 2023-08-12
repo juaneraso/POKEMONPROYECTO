@@ -21,9 +21,6 @@ const getTypesInternoHandler = async (req,res) => {
    res.status(200).json(typesInterno);
 };
 
-
-
-
  
 const getPokemonHandler = async (req,res) => {
     const {name} = req.query ;
@@ -35,8 +32,10 @@ const getPokemonHandler = async (req,res) => {
  const postPokemonHandler = async (req,res) => {
   
     try {
-       const {name,image,hp,atack,defense,speed,height,weight} = req.body;
-       const  newPokemon = await postPokemones(name,image,hp,atack,defense,speed,height,weight); 
+       const {name,image,hp,attack,defense,speed,height,weight,types} = req.body;
+       const nameMinuscula = name.toLowerCase();
+
+       const  newPokemon = await postPokemones(nameMinuscula,image,hp,attack,defense,speed,height,weight,types); 
        res.status(201).json(newPokemon); 
     }catch(error){
  
