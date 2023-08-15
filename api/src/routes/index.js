@@ -14,7 +14,7 @@ const {getPokemonHandler,postPokemonHandler,getPokemonesByIdHandler,getPokemonDe
 router.get('/pokemones',getPokemonHandler);
 router.get('/pokemones/detail',getPokemonDetailsHandler);
 router.post('/pokemones',postPokemonHandler);
-router.get('/pokemones/:id',getPokemonesByIdHandler);
+router.get('/pokemones/detail/:id',getPokemonesByIdHandler);
 router.get('/pokemon/types',getPokemonTypesHandler);
 router.get('/poke/typesinter',getTypesInternoHandler);
 

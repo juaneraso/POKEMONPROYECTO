@@ -2,67 +2,71 @@ import { useState } from "react";
 import axios from "axios";
 
 const Form = () => {
+  const [form, setForm] = useState({
+    name: "",
+    image: "",
+    hp: "",
+    attack: "",
+    defense: "",
+    speed: "",
+    height: "",
+    weight: "",
+    types: ""
+  });
 
-    const [form,setForm]= useState({
-      name:"",
-      image:"",
-      hp:"",
-      attack:"",
-      defense:"",
-      speed:"",
-      height:"",
-      weight:"",
-      types:"" 
+  const [errors, setErrors] = useState({
+    name: "",
+    image: "",
+    hp: "",
+    attack: "",
+    defense: "",
+    speed: "",
+    height: "",
+    weight: "",
+    types: ""
+  });
 
-    })
+  const validate = (formData) => {
+    const newErrors = {};
 
-//  const [errors,setErrors] = useState({
-//      name:"",
-//      image:"",
-//      hp:"",
-//      attack:"",
-//      defense:"",
-//      speed:"",
-//      height:"",
-//      weight:"",
-//      types:"" 
-
-//  })
-
-
-    const changeHandler = (event) =>{
-          // leer lo que escribi 
-      const property = event.target.name ;
-      const value = event.target.value;
-
-
-      //validate({...form,[property]:value});
-      setForm({...form,[property]:value});      
-
+    // Validar cada campo aquí
+    if (!formData.name) {
+      newErrors.name = "Nombre es requerido";
+    }else if (/\d/.test(formData.name)) {
+      newErrors.name = "Nombre no debe contener numeros";
     }
 
-    // const validate = (form) => {
-    //  if   (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(form.email)){
-    //       setErrors({...errors,email:""})
+    // Agregar más validaciones según tus requisitos
 
+    return newErrors;
+  };
 
-    //  } else{
-    
-    //       setErrors({...errors,email:"Hay un error en email"})
-    //  }
+  const changeHandler = (event) => {
+    const property = event.target.name;
+    const value = event.target.value;
 
-    //   if(form.email ==="") setErrors({...errors,email:"Email vacio"})
-    // }
+    const newForm = { ...form, [property]: value };
+    const newErrors = validate(newForm);
 
+    setForm(newForm);
+    setErrors(newErrors);
+  };
 
+  const submitHandler = (event) => {
+    event.preventDefault();
+    const newErrors = validate(form);
 
-     const submitHandler = (event) =>{
-      event.preventDefault();
-      axios.post("http://localhost:3001/pokemones",form)
-      .then(res => alert(res))
-      .catch(err=> alert(err))
+    if (Object.keys(newErrors).length === 0) {
+      axios
+        .post("http://localhost:3001/pokemones", form)
+        .then((res) => alert(res))
+        .catch((err) => alert(err));
       console.log(form);
-     }
+    } else {
+      setErrors(newErrors);
+    }
+  };
+
 
     return(
  
@@ -71,7 +75,7 @@ const Form = () => {
            <div>
                <label>Name: </label>               
                <input type="text" value = {form.name} onChange ={changeHandler} name="name"/>
-                 {/* {errors.email && <span>{errors.email}</span> } */}
+                 {errors.name && <span>{errors.name}</span> }
            </div>
                  
            <div>

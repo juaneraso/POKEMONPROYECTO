@@ -1,13 +1,38 @@
-.container{
-   border: 1px solid black;
-   display : flex;
-   flex-direction: row;
-   border-radius: 15 px;
+.pagination {
+   display: flex;
+   justify-content: center;
+   margin-top: 1rem;
+ }
+ 
+ .pagination button {
+   margin: 0 0.5rem;
+   padding: 0.25rem 0.5rem;
+   font-size: 0.9rem;
+   border: none;
+   background-color: #f0f0f0;
+   cursor: pointer;
+   transition: background-color 0.3s;
+ }
+ 
+ .pagination button:hover {
+   background-color: #d0d0d0;
+ }
+ 
+ .pagination button:disabled {
+   background-color: #e0e0e0;
+   cursor: not-allowed;
+ }
+/* Agrega estos estilos al archivo CardsContainer.module.css */
+.cards {
+   display: flex;
    flex-wrap: wrap;
-   gap: 1em;
-
-
-
-
-
-}
+   justify-content: space-between;
+ }
+ 
+ .card {
+   width: calc(33.33% - 1rem); /* Para mostrar 3 cartas por fila */
+   /* O puedes usar 25% para mostrar 4 cartas por fila */
+   margin: 0.5rem;
+   /* Resto de los estilos de las tarjetas aquí */
+ }
+ 

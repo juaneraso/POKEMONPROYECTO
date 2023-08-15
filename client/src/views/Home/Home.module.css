@@ -1,0 +1,10 @@
+.homeStyle{
+
+  background:linear-gradient(
+    to left,
+    rgb(51, 97, 222) 0%,
+    rgba(0,128,128,1) 100%
+
+  );
+
+  }

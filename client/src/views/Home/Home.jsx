@@ -2,13 +2,15 @@ import CardsContainer from "../../components/CardsContainer/CardsContainer";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getPokemones } from "../../redux/actions";
+import style from "./Home.module.css";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 const Home = () => {
     
   const dispatch  = useDispatch();
   // cuando se monta , que haga el dispatch 
-  // useEffect()  - useDispatch()  
-   useEffect(()=>{
+  // useEffect()  - useDispatch()  => son hooks 
+   useEffect(()=>{   // maneja el ciclo de vida del componente cuando se monta
     dispatch(getPokemones())
 
    },[dispatch])
@@ -16,12 +18,12 @@ const Home = () => {
 
    return(
 
-        <>
+        <div className={style.homeStyle}>
+          <SearchBar/>
           <h1>Esta es la vista de Home</h1>
           <CardsContainer/>
-           
-        </>
-
+        
+         </div>
 
    )
 

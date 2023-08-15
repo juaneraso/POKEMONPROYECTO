@@ -53,14 +53,49 @@ const cleanArray = (arr)=>
 
 
 const getPokemonByName = async (name) => {
-  const nameMinuscula = name.toLowerCase(); ;
+  
 
-  const pokemones = await Pokemon.findAll({ where: { name: nameMinuscula } });
- 
+  const nameMinuscula = name.toLowerCase(); ;
+  
+
+  //const pokemones = await Pokemon.findAll({ where: { name: nameMinuscula } });
+  const pokemones = await Pokemon.findAll({
+    where: { name: nameMinuscula },
+    include: {
+      model: Type,
+      attributes: ["name"],
+      through: {
+        attributes: [],
+      },
+    },
+  });
+
+
+  const cleanArray3 = (arr)=> 
+  arr.map((elem) => {
+    return { 
+    id : elem.id,
+    name:elem.name,
+    image:elem.image,
+    hp: elem.hp,
+    attack:elem.attack,
+    defense:elem.defense,
+    speed:elem.speed,
+    height:elem.height,
+    weight:elem.weight,
+    types: elem.types.map(type => type.name),
+    created:false,
+    };
+
+  }); 
+
+  const pokemonesBuenos2 = cleanArray3(pokemones);
+
 
   if (pokemones.length > 0) {
     // Si el Pokémon existe en la base de datos, devuelve directamente el resultado de la base de datos
-    return pokemones;
+    return pokemonesBuenos2;
+
   } else {
     // Si el Pokémon no está en la base de datos, hace una solicitud a la API de Pokémon para obtenerlo
     try {
@@ -80,7 +115,7 @@ const getPokemonByName = async (name) => {
       const speed = pokemonDetails.stats.find((stat) => stat.stat.name === 'speed').base_stat;
       const height = pokemonDetails.height;
       const weight = pokemonDetails.weight;
-
+      const pokemonTypes = pokemonDetails.types.map(typeInfo => typeInfo.type.name);
      const apiPokemones = {
       id,
       name,
@@ -91,7 +126,7 @@ const getPokemonByName = async (name) => {
       speed,
       height,
       weight,
-
+      types : pokemonTypes
 
      }
      const apiPokemon = cleanArray([apiPokemones]);
@@ -158,7 +193,7 @@ const getPokemonByName = async (name) => {
  // return formattedPokemones;
  
   
-  const apiResponse = await axios.get("https://pokeapi.co/api/v2/pokemon/?limit=30");  
+  const apiResponse = await axios.get("https://pokeapi.co/api/v2/pokemon/?limit=36");  
   const pokemonList = apiResponse.data.results;
 
   const allPokemonInfo = await Promise.all(
@@ -194,6 +229,9 @@ const getPokemonByName = async (name) => {
 };
 
 
+
+
+
 // const getPokemonesById = async (id,source) => {
 
 //   const pokemon = source === "api" ?
@@ -208,7 +246,7 @@ const getPokemonByName = async (name) => {
 
 const getPokemonesById = async (id,source) => {
   const id1 = id ; 
- 
+ console.log(id1);
   if (source === "api") {   
 
   const apiResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id1}`);
@@ -227,6 +265,7 @@ const getPokemonesById = async (id,source) => {
   const speed = pokemonDetails.stats.find((stat) => stat.stat.name === 'speed').base_stat;
   const height = pokemonDetails.height;
   const weight = pokemonDetails.weight;
+  const pokemonTypes = pokemonDetails.types.map(typeInfo => typeInfo.type.name);
 
  const apiPokemones = {
   id,
@@ -238,7 +277,7 @@ const getPokemonesById = async (id,source) => {
   speed,
   height,
   weight,
-
+  types : pokemonTypes
 
  }
  const apiPokemon = cleanArray([apiPokemones]);
@@ -246,7 +285,45 @@ const getPokemonesById = async (id,source) => {
 
   }
 
-  else {   return await Pokemon.findByPk(id1) } 
+
+  else {  
+    
+    //const pokemonesBase =  await Pokemon.findByPk(id1);
+    const pokemonesBase = await Pokemon.findByPk(id, {
+      include: {
+        model: Type,
+        attributes: ["name"],
+        through: {
+          attributes: [],
+        },
+      },
+    });
+
+    const cleanArray2 = (arr)=> 
+    arr.map((elem) => {
+      return { 
+      id : elem.id,
+      name:elem.name,
+      image:elem.image,
+      hp: elem.hp,
+      attack:elem.attack,
+      defense:elem.defense,
+      speed:elem.speed,
+      height:elem.height,
+      weight:elem.weight,
+      types: elem.types.map(type => type.name),
+      created:false,
+      };
+  
+    });
+
+
+    
+   const pokemonesBuenos = cleanArray2([pokemonesBase]);
+   
+    
+    
+    return pokemonesBuenos } 
   
       //return pokemon ; 
   
@@ -260,6 +337,4 @@ const getPokemonesById = async (id,source) => {
 
  
 module.exports  = {getPokemones, getPokemonByName,getPokemonesById};
-
-
 
