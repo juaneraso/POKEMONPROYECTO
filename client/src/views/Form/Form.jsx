@@ -1,7 +1,40 @@
 import { useState } from "react";
 import axios from "axios";
+import style from "./Form.module.css"
 
 const Form = () => {
+
+  const types = [
+    { name: "Normal", value: 1 },
+    { name: "Fighting", value: 2 },
+    { name: "Flying", value: 3},
+    { name: "Poison", value: 4},
+    { name: "Ground", value: 5},
+    { name: "Rock", value: 6},
+    { name: "Bug", value: 7},
+    { name: "Ghost", value: 8},
+    { name: "Steel", value: 9},
+    { name: "Fire", value: 10},
+    { name: "Water", value: 11},
+    { name: "Grass", value: 12},
+    { name: "Electric", value:13},
+    { name: "Psychic", value: 14},
+    { name: "Ice", value: 15},
+    { name: "Dragon", value: 16},
+    { name: "Dark", value: 17},
+    { name: "Fairy", value: 18},
+    { name: "Unknow", value: 19},
+    { name: "Shadow", value: 20},
+
+    // ...otros tipos
+  ]; 
+
+  const [typeError, setTypeError] = useState("");
+  const [showTypeOptions, setShowTypeOptions] = useState(false);
+
+
+
+
   const [form, setForm] = useState({
     name: "",
     image: "",
@@ -11,7 +44,7 @@ const Form = () => {
     speed: "",
     height: "",
     weight: "",
-    types: ""
+    types:[]
   });
 
   const [errors, setErrors] = useState({
@@ -23,8 +56,31 @@ const Form = () => {
     speed: "",
     height: "",
     weight: "",
-    types: ""
+    types: []
   });
+
+  const toggleType = (typeValue) => {
+    const updatedTypes = [...form.types];
+
+    if (updatedTypes.includes(typeValue)) {
+      updatedTypes.splice(updatedTypes.indexOf(typeValue), 1); // Deseleccionar tipo
+    } else {
+      if (updatedTypes.length < 2) {
+        updatedTypes.push(typeValue); // Seleccionar tipo si no hay dos seleccionados
+      } else {
+        setTypeError("Solo puedes seleccionar hasta dos tipos.");
+        return;
+      }
+    }
+
+    setTypeError("");
+    setErrors({ ...errors, types: [] });
+
+    setForm({ ...form, types: updatedTypes });
+  };
+
+
+
 
   const validate = (formData) => {
     const newErrors = {};
@@ -36,7 +92,51 @@ const Form = () => {
       newErrors.name = "Nombre no debe contener numeros";
     }
 
-    // Agregar más validaciones según tus requisitos
+    if(!formData.image){
+      newErrors.image = "Imagen es requerida";
+    }
+
+    if(!formData.hp){
+      newErrors.hp = "Salud es requerida";
+    }  else if (formData.hp < 0 || formData.hp > 150) {
+      newErrors.hp = "Salud debe estar entre 0 y 150";
+    }
+
+    if(!formData.attack){
+      newErrors.attack = "Ataque es requerido";
+    } else if (formData.attack < 0 || formData.attack > 150) {
+      newErrors.attack = "Ataque debe estar entre 0 y 150";
+    }
+    
+    if(!formData.defense){
+      newErrors.defense = "Defensa es requerida";
+    } else if (formData.defense < 0 || formData.defense > 150) {
+      newErrors.defense = "Salud debe estar entre 0 y 150";
+    }
+
+    if(!formData.speed){
+      newErrors.speed = "Velocidad es requerida";
+    } else if (formData.speed < 0 || formData.speed > 150) {
+      newErrors.speed = "Velocidad debe estar entre 0 y 150";
+    }
+
+    if(!formData.height){
+      newErrors.height = "Altura es requerida";
+    } else if (formData.height < 0 || formData.height > 300) {
+      newErrors.height = "Altura debe estar entre 0 y 300";
+    }
+
+    if(!formData.weight){
+      newErrors.weight = "Peso es requerido";
+    } else if (formData.weight < 0 || formData.weight > 1500) {
+      newErrors.weight = "Peso debe estar entre 0 y 1500";
+    }
+
+    if(formData.types.length === 0 && typeError === ""){
+      newErrors.types = "Al menos un tipo es requerido";
+    } 
+    
+ 
 
     return newErrors;
   };
@@ -59,7 +159,7 @@ const Form = () => {
     if (Object.keys(newErrors).length === 0) {
       axios
         .post("http://localhost:3001/pokemones", form)
-        .then((res) => alert(res))
+        .then((res) => alert("Pokemon creado"))
         .catch((err) => alert(err));
       console.log(form);
     } else {
@@ -68,63 +168,84 @@ const Form = () => {
   };
 
 
+
+
+
     return(
  
          <form onSubmit={submitHandler}>
-
-           <div>
+         
+           <div className={style.formContainer}>
+           <h1>Crea tu propio pokemon</h1>
                <label>Name: </label>               
-               <input type="text" value = {form.name} onChange ={changeHandler} name="name"/>
-                 {errors.name && <span>{errors.name}</span> }
-           </div>
-                 
-           <div>
+               <input  type="text" value = {form.name} onChange ={changeHandler} name="name"/>
+              {errors.name && <span className={style.errorText}>{errors.name}</span> }
+                           
+           
               <label>Imagen: </label>
               <input type="text" value = {form.image} onChange ={changeHandler}name="image"/>
-           </div>          
+              {errors.image && <span className={style.errorText}>{errors.image}</span> }      
                 
-           <div>
+          
               <label>Salud: </label>
               <input type="number"value = {form.hp} onChange ={changeHandler}name="hp"/>
-           </div>
-
-           <div>
-               <label>Ataque: </label>               
-               <input type="number" value = {form.attack} onChange ={changeHandler} name="attack"/>
-
-           </div>
-                 
-           <div>
+              {errors.hp && <span className={style.errorText}>{errors.hp}</span> }
+           
+              <label>Ataque: </label>               
+              <input type="number" value = {form.attack} onChange ={changeHandler} name="attack"/>
+              {errors.attack && <span className={style.errorText}>{errors.attack}</span> }
+                           
+           
               <label>Defensa: </label>
               <input type="number" value = {form.defense} onChange ={changeHandler}name="defense"/>
-           </div>          
+              {errors.defense && <span className={style.errorText}>{errors.defense}</span> }        
                 
-           <div>
+           
               <label>Velocidad: </label>
               <input type="number"value = {form.speed} onChange ={changeHandler}name="speed"/>
-           </div>
-
-           <div>
-               <label>Altura: </label>               
-               <input type="number" value = {form.height} onChange ={changeHandler} name="height"/>
-              
-           </div>
-                 
-           <div>
+              {errors.speed && <span className={style.errorText}>{errors.speed}</span> }
+           
+              <label>Altura: </label>               
+              <input type="number" value = {form.height} onChange ={changeHandler} name="height"/>
+              {errors.height && <span className={style.errorText}>{errors.height}</span> }
+                          
+           
               <label>Peso: </label>
               <input type="number" value = {form.weight} onChange ={changeHandler}name="weight"/>
-           </div>          
-                
-           <div>
-              <label>Tipo: </label>
-              <input type="number" value = {form.types} onChange ={changeHandler}name="types"/>
-           </div>
+              {errors.weight && <span className={style.errorText}>{errors.weight}</span> }                  
+                                              
+         <br></br>
 
+<label onClick={() => setShowTypeOptions(!showTypeOptions)}>Click para seleccionar tipo</label>
 
-
+        {showTypeOptions && (
+      <div>
+        {types.map((type) => (
+          <label key={type.value}>
+            <input
+              type="checkbox"
+              checked={form.types.includes(type.value)}
+              onChange={() => toggleType(type.value)}
+            />
+            {type.name}
+          </label>
+        ))}
+      </div>
+        )}
+         
+      {typeError && <p className={style.errorText}>{typeError}</p>}
+      {errors.types && <span className={style.errorText}>{errors.types}</span>} 
+              {/* <label>Tipo: </label>
+              <input type="number" value = {form.types} onChange ={changeHandler}name="types"/>  */}
            
-           <button type="submit">SUBMIT</button>
-          
+           <button disabled={!form.name || !form.image || !form.hp || !form.attack  || !form.defense 
+             || !form.speed || !form.height || !form.weight
+             || form.types.length === 0 || errors.name || errors.image
+             || errors.hp  || errors.attack  || errors.defense  
+             || errors.speed  || errors.height  || errors.weight 
+             || typeError !== "" }type="submit">CREAR</button>
+
+          </div>
             
          </form>
  

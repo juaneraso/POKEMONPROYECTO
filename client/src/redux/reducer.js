@@ -1,6 +1,7 @@
 import { GET_POKEMONES} from "./actions";
 import { SEARCH_POKEMONES } from "./actions";
 import { SEARCH_ID} from "./actions";
+import { CLEAN_SEARCH } from "./actions";
 
 const initialState = {
 
@@ -19,7 +20,7 @@ const rootReducer = (state = initialState,action) =>{
       case SEARCH_POKEMONES: 
         return {...state,
          //searchResults:action.payload,
-         searchResults: state.query === "" ? [] : action.payload,
+         searchResults:action.payload,
           
         };
 
@@ -28,6 +29,13 @@ const rootReducer = (state = initialState,action) =>{
           searchResultsId:action.payload,
           
         };
+
+        case CLEAN_SEARCH: 
+        return {...state,
+          searchResults:[],
+          
+        };
+       
        
      default:
        return{ ...state };  // retornar una copia del estado 

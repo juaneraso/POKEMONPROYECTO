@@ -1,0 +1,12 @@
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    height: 80vh; 
+    background-color: beige;
+  }
+  .errorText {
+    color: red;
+    margin-left: 10px;
+  }

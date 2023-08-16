@@ -45,7 +45,13 @@ export const searchID = (id) => {
   };
 };
 
+export const CLEAN_SEARCH = "CLEAN_SEARCH";
 
+export const cleanSearch = () => {
+  return {
+    type: CLEAN_SEARCH
+  }
+}
 
 
 

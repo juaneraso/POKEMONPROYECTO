@@ -32,7 +32,7 @@ const Detail = () => {
       <p>Velocidad: {pokemones?.speed}</p>
       <p>Altura: {pokemones?.height}</p>
       <p>Peso: {pokemones?.weight}</p>
-      <p>Tipo: {pokemones?.types}</p>
+      <p>Tipo: {pokemones?.types.join(', ')}</p> 
     </div>
 
   );
