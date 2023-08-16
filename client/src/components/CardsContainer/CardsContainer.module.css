@@ -9,18 +9,20 @@
    padding: 0.25rem 0.5rem;
    font-size: 0.9rem;
    border: none;
-   background-color: #f0f0f0;
+   background-color: #d41e1e;
    cursor: pointer;
    transition: background-color 0.3s;
  }
  
  .pagination button:hover {
    background-color: #d0d0d0;
+   color: #fff;
  }
  
  .pagination button:disabled {
-   background-color: #e0e0e0;
+   background-color: #9c1515;
    cursor: not-allowed;
+   color: #fff;
  }
 /* Agrega estos estilos al archivo CardsContainer.module.css */
 .cards {
@@ -37,3 +39,21 @@
    /* Resto de los estilos de las tarjetas aquí */
  }
  
+ .button {
+  padding: 8px 16px;
+  font-size: 16px;
+  margin-right: 8px; /* Agrega un margen derecho entre los botones */
+  border: 2px solid #2f056b;
+  border-radius: 2px;
+  background-color: #226e5c;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Estilos para los selects */
+.select {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

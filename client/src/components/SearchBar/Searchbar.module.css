@@ -1,7 +1,23 @@
-
-.searchbar{
+.searchbar {
   display: flex;
+  align-items: center;
+  gap: px;
+}
+
+.input {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 200px;
   
+}
 
-
+.button {
+  padding: 8px 16px;
+  font-size: 16px; 
+  border-radius: 4px;
+  background-color: #226e5c;
+  color: #fff;
+  cursor: pointer;
 }

@@ -1,8 +1,31 @@
 .card{
-  border : 1px solid black;
-  width: fit-content;
-  height: fit-content;
-  border-radius: 10 px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 3%;
+  width: 100%;
+  max-width: 250px; 
+  padding: 0.7rem;
+  margin: 1rem;
+  background-color: #ffffff50;
+  justify-content: center;
+  text-align: center;
+  transition: transform 0.3s ease
+}
 
+.heading {
+  margin: 4px 0; /* Agrega un margen superior e inferior a los párrafos */
+  font-size: 20px; /* Tamaño de fuente para los párrafos */
+  color: #d0d0d0; /* Color de fuente para los párrafos */
+}
 
+.card p {
+  margin: 4px 0; /* Agrega un margen superior e inferior a los párrafos */
+  font-size: 20px; /* Tamaño de fuente para los párrafos */
+  color: #f5f9f2; /* Color de fuente para los párrafos */
+}
+
+.card a {
+  text-decoration: none; /* Quitar el subrayado del enlace */
+  color: #226e5c; /* Color de fuente para el enlace */
 }

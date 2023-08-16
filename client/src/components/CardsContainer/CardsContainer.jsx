@@ -36,9 +36,7 @@ const CardsContainer = () => {
 
      return typeFilter && createdFilter;
    });
-
-
-   
+  
 
 
    switch (sortOrder) {
@@ -62,17 +60,19 @@ const CardsContainer = () => {
  
     return(
 
-      <div className={style.container}>
+      <div>
 
-         <button onClick={() => setSortOrder("default")}>Orden original</button>
-         <button onClick={() => setSortOrder("nameAsc")}>Nombre A-Z</button>
-         <button onClick={() => setSortOrder("nameDesc")}>Nombre Z-A</button>
-         <button onClick={() => setSortOrder("AtaqueAsc")}>Ataque ascendente</button>
-         <button onClick={() => setSortOrder("AtaqueDesc")}>Ataque descendente</button>
+        <div className={style.button}>    
+
+         <button className={style.button}  onClick={() => setSortOrder("default")}>Orden original</button>
+         <button className={style.button}  onClick={() => setSortOrder("nameAsc")}>Nombre A-Z</button>
+         <button className={style.button}  onClick={() => setSortOrder("nameDesc")}>Nombre Z-A</button>
+         <button className={style.button}  onClick={() => setSortOrder("AtaqueAsc")}>Ataque ascendente</button>
+         <button className={style.button}  onClick={() => setSortOrder("AtaqueDesc")}>Ataque descendente</button>
+         </div>
 
 
-
-         <select onChange={(e) => setSelectedType(e.target.value)} value={selectedType || ""}>
+         <select className={style.select} onChange={(e) => setSelectedType(e.target.value)} value={selectedType || ""}>
         <option value="">Mostrar todos</option>
         {types.map((type) => (
           <option key={type} value={type}>
@@ -81,7 +81,7 @@ const CardsContainer = () => {
         ))}
       </select>
 
-      <select onChange={(e) => setShowCreated(e.target.value)} value={showCreated}>
+      <select className= {style.select} onChange={(e) => setShowCreated(e.target.value)} value={showCreated}>
         <option value="all">Mostrar todos</option>
         <option value={true}>Creados</option>
         <option value={false}>No Creados</option>
@@ -103,14 +103,12 @@ const CardsContainer = () => {
          return <Card
           key={pokemon.id}
           id = {pokemon.id}
-          name = {pokemon.name}
+          name = { capitalizeFirstLetter(pokemon.name)}
           image = {pokemon.image}               
           types = {pokemon.types}
           attack = {pokemon.attack}
-          created = {pokemon.created}
-          
-          
-                                 
+          created = {pokemon.created}       
+                                           
            />
           })}
 
@@ -120,7 +118,7 @@ const CardsContainer = () => {
                        <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
                          Anterior
                        </button>
-                       <button onClick={() => setCurrentPage(currentPage + 1)} disabled={endIndex >= filteredAndSortedData.length}>
+                       <button   onClick={() => setCurrentPage(currentPage + 1)} disabled={endIndex >= filteredAndSortedData.length}>
                          Siguiente
                        </button>
                 </div>

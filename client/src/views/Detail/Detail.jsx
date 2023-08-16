@@ -11,14 +11,15 @@ const Detail = () => {
   const character = useSelector((state) => state.searchResultsId);
  const pokemones = character[0];
 
-  console.log(pokemones);
+ // console.log(pokemones);
 
   useEffect(() => {
     dispatch(searchID(id));
   }, [dispatch, id]);
 
   return (
-    <div className={style.detailStyle} key={pokemones?.id}>
+    <div className={style.detailContainer}> 
+      <div className={style.detailStyle} key={pokemones?.id}>
       <h2>Id: {pokemones?.id}</h2>
       <p> Name : {pokemones?.name}</p>
       <img
@@ -33,7 +34,8 @@ const Detail = () => {
       <p>Altura: {pokemones?.height}</p>
       <p>Peso: {pokemones?.weight}</p>
       <p>Tipo: {pokemones?.types.join(', ')}</p> 
-    </div>
+     </div>
+   </div>
 
   );
 };

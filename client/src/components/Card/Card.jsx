@@ -15,17 +15,18 @@ creado = 'true'
 
    return(
      
-     
+
       <div className={style.card}  >
-        <Link to={`/detail/${props.id}`}>
-           <p>Nombre:{props.name}</p>      
-           </Link>    
-           <img src={props.image} alt='' style={{ width: '100px', height: '100px' }} />          
+      <Link to={`/detail/${props.id}`}>
+          
+             <h1 className={style.heading}>{props.name}</h1> 
+             <img src={props.image} alt='' style={{ width: '100px', height: '100px' }} />          
              <p>Tipos: {props.types.join(', ')}</p>
              <p>Ataque:{props.attack}</p>
              <p>Creado:{creado}</p>
+             </Link>    
       </div>
-
+      
 
     )
 

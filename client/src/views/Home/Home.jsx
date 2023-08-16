@@ -19,10 +19,12 @@ const Home = () => {
    return(
 
         <div className={style.homeStyle}>
+          <div className={style.searchbar}> 
           <SearchBar/>
-          <h1>Esta es la vista de Home</h1>
+          </div>
+          {/* <h1>Esta es la vista de Home</h1> */}
           <CardsContainer/>
-        
+          
          </div>
 
    )
