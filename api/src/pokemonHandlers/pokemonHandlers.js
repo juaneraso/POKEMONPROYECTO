@@ -25,7 +25,12 @@ const getTypesInternoHandler = async (req,res) => {
 const getPokemonHandler = async (req,res) => {
     const {name} = req.query ;
     const results = name ? await getPokemonByName(name) : await getPokemones();
-    res.status(200).json(results);
+    if(results.error){
+
+      return res.status(404).json(results);
+    }
+    return  res.status(200).json(results);
+
  };
 
 

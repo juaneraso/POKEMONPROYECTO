@@ -11,7 +11,7 @@ const location = useLocation();
     <div className="App">
 
       {location.pathname !== "/" && <NavBar/>}
-      
+       <br></br>        
       <Route exact path="/" component = {Landing}/>
       <Route exact path="/detail/:id" component = {Detail}/>
       <Route exact path="/create" component = {Form}/>     

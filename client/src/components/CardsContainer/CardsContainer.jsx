@@ -19,12 +19,23 @@ const CardsContainer = () => {
  const startIndex = (currentPage - 1) * itemsPerPage;
  const endIndex = startIndex + itemsPerPage;
 
- const combinedData = searchResults.length > 0 ? searchResults : pokemones;
+ const combinedData = searchResults.length > 0  ? searchResults : pokemones;
+
+//   let flag = 0 ;
+
+//  if(searchResults.error === 404 ){
+   
+//  console.log('entre');
+//  // window.alert("no existe el pokemon")
+//   flag = 1;
+//  }
+
+// console.log(searchResults);
+
 
  const types = ["normal","fighting","flying","poison","ground","rock","bug",
                 "ghost","steel","fire","water","grass","electric","psychic",
                 "ice","dragon","dark","fairy","unknow","shadow"];
-
 
 
  const getFilteredAndSortedData = () => {
@@ -69,8 +80,8 @@ const CardsContainer = () => {
          <button className={style.button}  onClick={() => setSortOrder("nameDesc")}>Nombre Z-A</button>
          <button className={style.button}  onClick={() => setSortOrder("AtaqueAsc")}>Ataque ascendente</button>
          <button className={style.button}  onClick={() => setSortOrder("AtaqueDesc")}>Ataque descendente</button>
-         </div>
-
+       
+                
 
          <select className={style.select} onChange={(e) => setSelectedType(e.target.value)} value={selectedType || ""}>
         <option value="">Mostrar todos</option>
@@ -79,24 +90,48 @@ const CardsContainer = () => {
             {capitalizeFirstLetter(type)}
           </option>
         ))}
-      </select>
+      </select>     
 
-      <select className= {style.select} onChange={(e) => setShowCreated(e.target.value)} value={showCreated}>
+       <select className= {style.select} onChange={(e) => setShowCreated(e.target.value)} value={showCreated}>
         <option value="all">Mostrar todos</option>
         <option value={true}>Creados</option>
         <option value={false}>No Creados</option>
       </select>
+         </div>
 
 
-         {/* <button onClick={() => setSelectedType("grass")}>Planta</button>
-         <button onClick={() => setSelectedType("fire")}>Fuego</button>
-         <button onClick={() => {setShowCreated("all");
-                                 setSelectedType(null)}  
-                                              }>Mostrar todos</button>
-         <button onClick={() => setShowCreated(true)}>Creados</button>
-         <button onClick={() => setShowCreated(false)}>No Creados</button> */}
+
+{/*      
+    <div className={style.cards}>
+
+      {flag === 1 ? (
+        <h1 className={style.heading}>No se encontro Pokémon</h1>
+      ) : (
+        filteredAndSortedData.slice(startIndex, endIndex).map((pokemon) => {
+          return (
+            <Card
+              key={pokemon.id}
+              id={pokemon.id}
+              name={capitalizeFirstLetter(pokemon.name)}
+              image={pokemon.image}
+              types={pokemon.types}
+              attack={pokemon.attack}
+              created={pokemon.created}
+            />
+          );
+          })
+        )}
+      </div>
+      */}
+      
+
+         
+
+
+
 
        <div className={style.cards}>
+
   
         {filteredAndSortedData.slice(startIndex, endIndex).map(pokemon => {
   
@@ -112,7 +147,11 @@ const CardsContainer = () => {
            />
           })}
 
-            </div>
+        </div>
+
+        
+
+
     
            <div className={style.pagination}>
                        <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>

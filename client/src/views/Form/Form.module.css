@@ -3,10 +3,48 @@
     flex-direction: column;
     justify-content: center;
     align-items: center; 
-    height: 80vh; 
-    background-color: beige;
+    height: 115vh; 
+    background-color: rgb(198, 198, 174);
+    font-family: "Chakra Petch", sans-serif;
   }
   .errorText {
-    color: red;
+    color: rgb(237, 46, 29);
     margin-left: 10px;
+  }
+
+  .labelStyle {
+    color: rgb(44, 44, 120); 
+    font-weight: bold; 
+ 
+   
+  }
+
+  .buttonStyleTipo {
+    background-color: rgb(84, 126, 134); 
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    font-family: "Chakra Petch", sans-serif;
+  
+  }
+  
+  .buttonStyleTipo:hover {
+    background-color:rgb(41, 107, 103); 
+  }
+
+  .buttonStyleCrear {
+    background-color: rgb(41, 107, 103); 
+    color: white;
+    padding: 5px 25px;
+    border: none;
+    cursor: pointer;
+    font-family: "Chakra Petch", sans-serif;
+
+  }
+
+  .buttonDisabled {
+    background-color: #b3a7a7;
+    cursor: not-allowed;
+    color: #fff;
   }

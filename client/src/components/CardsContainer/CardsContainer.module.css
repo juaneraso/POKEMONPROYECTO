@@ -9,7 +9,8 @@
    padding: 0.25rem 0.5rem;
    font-size: 0.9rem;
    border: none;
-   background-color: #d41e1e;
+   background-color: #8a0a0a;
+   color: #fff;
    cursor: pointer;
    transition: background-color 0.3s;
  }
@@ -20,11 +21,11 @@
  }
  
  .pagination button:disabled {
-   background-color: #9c1515;
+   background-color: #766262;
    cursor: not-allowed;
    color: #fff;
  }
-/* Agrega estos estilos al archivo CardsContainer.module.css */
+
 .cards {
    display: flex;
    flex-wrap: wrap;
@@ -33,16 +34,16 @@
  }
  
  .card {
-   width: calc(33.33% - 1rem); /* Para mostrar 3 cartas por fila */
-   /* O puedes usar 25% para mostrar 4 cartas por fila */
+   width: calc(33.33% - 1rem); 
+
    margin: 0.5rem;
-   /* Resto de los estilos de las tarjetas aquí */
+
  }
  
  .button {
   padding: 8px 16px;
   font-size: 16px;
-  margin-right: 8px; /* Agrega un margen derecho entre los botones */
+  margin-right: 8px;
   border: 2px solid #2f056b;
   border-radius: 2px;
   background-color: #226e5c;
@@ -50,10 +51,16 @@
   cursor: pointer;
 }
 
-/* Estilos para los selects */
+
 .select {
   padding: 8px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+.heading {
+  margin: 4px 0; 
+  font-size: 40px; 
+  color: #fffefe; 
 }

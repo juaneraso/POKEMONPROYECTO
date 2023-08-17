@@ -135,9 +135,7 @@ const Form = () => {
     if(formData.types.length === 0 && typeError === ""){
       newErrors.types = "Al menos un tipo es requerido";
     } 
-    
- 
-
+     
     return newErrors;
   };
 
@@ -159,15 +157,78 @@ const Form = () => {
     if (Object.keys(newErrors).length === 0) {
       axios
         .post("http://localhost:3001/pokemones", form)
-        .then((res) => alert("Pokemon creado"))
-        .catch((err) => alert(err));
+        .then((res) => {
+         alert("Pokemon creado")        
+        resetForm();
+        })
+        .catch((err) => {
+          if (err.response && err.response.status === 400) {
+            alert("El Pokémon ya existe");
+          } else {
+            alert(err);
+          }
+        });
       console.log(form);
-    } else {
+      } else {
       setErrors(newErrors);
     }
   };
 
+  const resetForm = () => {
+    setForm({
+      name: "",
+      image: "",
+      hp: "",
+      attack: "",
+      defense: "",
+      speed: "",
+      height: "",
+      weight: "",
+      types: []
+    });
+  
+    setErrors({
+      name: "",
+      image: "",
+      hp: "",
+      attack: "",
+      defense: "",
+      speed: "",
+      height: "",
+      weight: "",
+      types: []
+    });
+  
+    setTypeError("");
+    setShowTypeOptions(false);
+  };
 
+
+
+
+
+
+
+
+  const formIsDisabled =
+  !form.name ||
+  !form.image ||
+  !form.hp ||
+  !form.attack ||
+  !form.defense ||
+  !form.speed ||
+  !form.height ||
+  !form.weight ||
+  form.types.length === 0 ||
+  errors.name ||
+  errors.image ||
+  errors.hp ||
+  errors.attack ||
+  errors.defense ||
+  errors.speed ||
+  errors.height ||
+  errors.weight ||
+  typeError !== "";
 
 
 
@@ -175,75 +236,78 @@ const Form = () => {
  
          <form onSubmit={submitHandler}>
          
-           <div className={style.formContainer}>
+        <div className={style.formContainer}>
            <h1>Crea tu propio pokemon</h1>
-               <label>Name: </label>               
+
+               <label className={style.labelStyle} >Nombre</label>               
                <input  type="text" value = {form.name} onChange ={changeHandler} name="name"/>
               {errors.name && <span className={style.errorText}>{errors.name}</span> }
                            
            
-              <label>Imagen: </label>
+              <label className={style.labelStyle}>Imagen</label>
               <input type="text" value = {form.image} onChange ={changeHandler}name="image"/>
               {errors.image && <span className={style.errorText}>{errors.image}</span> }      
                 
-          
-              <label>Salud: </label>
+           
+              <label className={style.labelStyle}>Salud</label>
               <input type="number"value = {form.hp} onChange ={changeHandler}name="hp"/>
               {errors.hp && <span className={style.errorText}>{errors.hp}</span> }
            
-              <label>Ataque: </label>               
+              <label className={style.labelStyle}>Ataque</label>               
               <input type="number" value = {form.attack} onChange ={changeHandler} name="attack"/>
               {errors.attack && <span className={style.errorText}>{errors.attack}</span> }
                            
            
-              <label>Defensa: </label>
+              <label className={style.labelStyle}>Defensa</label>
               <input type="number" value = {form.defense} onChange ={changeHandler}name="defense"/>
               {errors.defense && <span className={style.errorText}>{errors.defense}</span> }        
                 
            
-              <label>Velocidad: </label>
+              <label className={style.labelStyle}>Velocidad</label>
               <input type="number"value = {form.speed} onChange ={changeHandler}name="speed"/>
               {errors.speed && <span className={style.errorText}>{errors.speed}</span> }
            
-              <label>Altura: </label>               
+              <label className={style.labelStyle}>Altura</label>               
               <input type="number" value = {form.height} onChange ={changeHandler} name="height"/>
               {errors.height && <span className={style.errorText}>{errors.height}</span> }
                           
            
-              <label>Peso: </label>
+              <label className={style.labelStyle}>Peso</label>
               <input type="number" value = {form.weight} onChange ={changeHandler}name="weight"/>
               {errors.weight && <span className={style.errorText}>{errors.weight}</span> }                  
                                               
          <br></br>
 
-<label onClick={() => setShowTypeOptions(!showTypeOptions)}>Click para seleccionar tipo</label>
+{/* <label onClick={() => setShowTypeOptions(!showTypeOptions)}>Click para seleccionar tipo</label> */}
 
-        {showTypeOptions && (
-      <div>
-        {types.map((type) => (
-          <label key={type.value}>
+      <button  className={`${style.buttonStyleTipo} ${style.buttonHover}`} 
+              onClick={() => setShowTypeOptions(!showTypeOptions)}>Seleccionar tipo</button>
+             {showTypeOptions && (
+            <div>
+            {types.map((type) => (
+            <label key={type.value}>
             <input
               type="checkbox"
               checked={form.types.includes(type.value)}
               onChange={() => toggleType(type.value)}
             />
             {type.name}
+
+
           </label>
         ))}
       </div>
         )}
+        <br></br>
          
       {typeError && <p className={style.errorText}>{typeError}</p>}
       {errors.types && <span className={style.errorText}>{errors.types}</span>} 
               {/* <label>Tipo: </label>
               <input type="number" value = {form.types} onChange ={changeHandler}name="types"/>  */}
            
-           <button disabled={!form.name || !form.image || !form.hp || !form.attack  || !form.defense 
-             || !form.speed || !form.height || !form.weight
-             || form.types.length === 0 || errors.name || errors.image
-             || errors.hp  || errors.attack  || errors.defense  
-             || errors.speed  || errors.height  || errors.weight 
-             || typeError !== "" }type="submit">CREAR</button>
+           <button className={`${style.buttonStyleCrear} ${formIsDisabled ? style.buttonDisabled : ""}`}   
+              disabled={formIsDisabled}
+               type="submit">Crear</button>
 
           </div>
             

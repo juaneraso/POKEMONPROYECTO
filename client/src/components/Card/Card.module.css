@@ -7,25 +7,25 @@
   max-width: 250px; 
   padding: 0.7rem;
   margin: 1rem;
-  background-color: #ffffff50;
+  background-color: #efefef50;
   justify-content: center;
   text-align: center;
   transition: transform 0.3s ease
 }
 
 .heading {
-  margin: 4px 0; /* Agrega un margen superior e inferior a los párrafos */
-  font-size: 20px; /* Tamaño de fuente para los párrafos */
-  color: #d0d0d0; /* Color de fuente para los párrafos */
+  margin: 4px 0; 
+  font-size: 20px; 
+  color: #d9c5eb; 
 }
 
 .card p {
-  margin: 4px 0; /* Agrega un margen superior e inferior a los párrafos */
-  font-size: 20px; /* Tamaño de fuente para los párrafos */
-  color: #f5f9f2; /* Color de fuente para los párrafos */
+  margin: 4px 0;
+  font-size: 20px;
+  color: #f5f9f2;
 }
 
 .card a {
-  text-decoration: none; /* Quitar el subrayado del enlace */
-  color: #226e5c; /* Color de fuente para el enlace */
+  text-decoration: none; 
+  color: #226e5c;
 }
