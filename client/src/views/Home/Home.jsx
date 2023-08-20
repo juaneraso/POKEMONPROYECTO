@@ -1,7 +1,7 @@
 import CardsContainer from "../../components/CardsContainer/CardsContainer";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getPokemones } from "../../redux/actions";
+import { getPokemones} from "../../redux/actions";
 import style from "./Home.module.css";
 import SearchBar from "../../components/SearchBar/SearchBar";
 

@@ -12,9 +12,11 @@ const router = Router();
 const {getPokemonHandler,postPokemonHandler,getPokemonesByIdHandler,getPokemonDetailsHandler,getPokemonTypesHandler,getTypesInternoHandler} = require("../pokemonHandlers/pokemonHandlers");
 
 router.get('/pokemones',getPokemonHandler);
-router.get('/pokemones/detail',getPokemonDetailsHandler);
 router.post('/pokemones',postPokemonHandler);
 router.get('/pokemones/detail/:id',getPokemonesByIdHandler);
+
+//Rutas opcionales 
+router.get('/pokemones/detail',getPokemonDetailsHandler);
 router.get('/pokemon/types',getPokemonTypesHandler);
 router.get('/poke/typesinter',getTypesInternoHandler);
 

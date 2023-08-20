@@ -29,6 +29,7 @@ const Form = () => {
     // ...otros tipos
   ]; 
 
+//Estados locales
   const [typeError, setTypeError] = useState("");
   const [showTypeOptions, setShowTypeOptions] = useState(false);
 
@@ -60,7 +61,7 @@ const Form = () => {
   });
 
   const toggleType = (typeValue) => {
-    const updatedTypes = [...form.types];
+    const updatedTypes = [...form.types];  //creo copia par no modificar el estado directamente
 
     if (updatedTypes.includes(typeValue)) {
       updatedTypes.splice(updatedTypes.indexOf(typeValue), 1); // Deseleccionar tipo

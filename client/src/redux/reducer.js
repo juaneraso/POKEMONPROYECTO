@@ -2,11 +2,12 @@ import { GET_POKEMONES} from "./actions";
 import { SEARCH_POKEMONES } from "./actions";
 import { SEARCH_ID} from "./actions";
 import { CLEAN_SEARCH } from "./actions";
+import { GET_TYPES } from "./actions";
 
 const initialState = {
 
 
- pokemones:[], searchResults:[],searchResultsId:[]
+ pokemones:[], searchResults:[],searchResultsId:[],types:[]
 
 };
 
@@ -29,6 +30,13 @@ const rootReducer = (state = initialState,action) =>{
           searchResultsId:action.payload,
           
         };
+
+        case GET_TYPES: 
+        return {...state,
+          types:action.payload,
+          
+        };
+
 
         case CLEAN_SEARCH: 
         return {...state,

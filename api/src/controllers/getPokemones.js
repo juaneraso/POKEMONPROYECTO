@@ -19,8 +19,8 @@ const cleanArray = (arr) =>
   });
 
 const getPokemonByName = async (name) => {
-  const nameMinuscula = name.toLowerCase();
 
+  const nameMinuscula = name.toLowerCase();
   const pokemones = await Pokemon.findAll({
     where: { name: nameMinuscula },
     include: {
@@ -62,7 +62,7 @@ const getPokemonByName = async (name) => {
       const id = pokemonDetails.id;
       const name = pokemonDetails.name;
       const image = pokemonDetails.sprites.front_default;
-      const hp = pokemonDetails.stats.find(stat => stat.stat.name === 'hp').base_stat;
+      const hp = pokemonDetails.stats.find(stat => stat.stat.name === 'hp').base_stat;    // buscamo en la matriz stat 
       const attack = pokemonDetails.stats.find(stat => stat.stat.name === 'attack').base_stat;
       const defense = pokemonDetails.stats.find(stat => stat.stat.name === 'defense').base_stat;
       const speed = pokemonDetails.stats.find(stat => stat.stat.name === 'speed').base_stat;
@@ -83,7 +83,7 @@ const getPokemonByName = async (name) => {
         types: pokemonTypes,
       };
       
-      const apiPokemon = cleanArray([apiPokemones]);
+      const apiPokemon = cleanArray([apiPokemones]); // para funciones que esperan que les pases un array 
       return apiPokemon;
     } catch (error) {
       console.error('Error al obtener el Pokémon de la API:', error.message);
@@ -91,6 +91,7 @@ const getPokemonByName = async (name) => {
     }
   }
 };
+
 
 const getPokemones = async () => {
   const pokemones = await Pokemon.findAll({
@@ -120,20 +121,15 @@ const getPokemones = async () => {
   });
 
   try {
-    const response = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=36");
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
+    const response = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=36"); 
 
     const pokemonList = await response.json();
 
-    const allPokemonInfo = await Promise.all(
-      pokemonList.results.map(async (pokemon) => {
-        const detailResponse = await fetch(pokemon.url);
-        if (!detailResponse.ok) {
-          throw new Error(`HTTP error! Status: ${detailResponse.status}`);
-        }
-        const { id, name, sprites, stats, height, weight, types } = await detailResponse.json();
+    const allPokemonInfo = await Promise.all(        // Multiples solicitudes en paralelo
+        pokemonList.results.map(async (pokemon) => {
+        const detailResponse = await fetch(pokemon.url);   // solicitu para traer los detalles del pokemon
+
+        const { id, name, sprites, stats, height, weight, types } = await detailResponse.json(); //Desesetructuro para obtener lo que necesito
         const hp = stats.find(stat => stat.stat.name === 'hp').base_stat;
         const attack = stats.find(stat => stat.stat.name === 'attack').base_stat;
         const defense = stats.find(stat => stat.stat.name === 'defense').base_stat;
@@ -156,7 +152,7 @@ const getPokemones = async () => {
 
     const apiPokemones = cleanArray(allPokemonInfo);
 
-    return [...formattedPokemones, ...apiPokemones];
+    return [...formattedPokemones, ...apiPokemones];     // Combino los resultados con el operador spread
   } catch (error) {
     console.error('Error al obtener los Pokémon de la API:', error.message);
     return formattedPokemones;
@@ -166,7 +162,8 @@ const getPokemones = async () => {
 const getPokemonesById = async (id, source) => {
   const id1 = id;
 
-  if (source === 'api') {
+  if (source === 'api') {  //logica en el handler
+
     try {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id1}`);
    

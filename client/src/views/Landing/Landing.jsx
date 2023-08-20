@@ -8,8 +8,7 @@ const Landing = () => {
  
          <div className={style.container}>
           
-           <img className={style.backgroundImage}
-            //src="https://media4.giphy.com/media/MY0gDeYdOs8DzfSPFo/giphy.gif?cid=ecf05e47a8ey9m3air6zkk1a5o88ljge26np6ef7rdj742ex&ep=v1_gifs_related&rid=giphy.gif&ct=g"
+           <img className={style.backgroundImage}           
             src = "https://i.makeagif.com/media/1-24-2015/w03MFY.gif"
             alt="landing"
            

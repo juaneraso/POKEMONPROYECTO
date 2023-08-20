@@ -5,6 +5,52 @@ const getPokemonDetails = require("../controllers/getPokemonDetails");
 const getPokemonTypes = require("../controllers/getPokemonTypes");
 const getTypesInterno = require("../controllers/getPokemonTypesInterno");
 
+
+const getPokemonHandler = async (req,res) => {
+   const {name} = req.query ;
+   const results = name ? await getPokemonByName(name) : await getPokemones();
+   if(results.error){
+
+     return res.status(404).json(results);
+   }
+   return  res.status(200).json(results);
+
+};
+
+const postPokemonHandler = async (req,res) => {
+  
+   try {
+      const {name,image,hp,attack,defense,speed,height,weight,types} = req.body;  //desestructuro datos del body 
+      const nameMinuscula = name.toLowerCase(); //convierto el nombre a minuscula
+
+      const  newPokemon = await postPokemones(nameMinuscula,image,hp,attack,defense,speed,height,weight,types); 
+      res.status(201).json(newPokemon); 
+   }catch(error){
+
+     res.status(400).json({error:error.message});
+   }
+
+};
+
+const getPokemonesByIdHandler = async (req,res) => {
+
+   const {id} = req.params;          //obtengo la id
+   const source = isNaN(id) ? "bdd" : "api" ;  // si no es numerica busca en la bd
+
+   try {     
+      const pokemones = await getPokemonesById(id,source); 
+      res.status(200).json(pokemones); 
+   }catch(error){
+
+     res.status(400).json({error:error.message});
+   }
+
+};
+
+
+// Otros handlers utilizados para debug 
+
+
 const getPokemonDetailsHandler = async (req,res) => {
    const {name} = req.query ;
    
@@ -22,48 +68,15 @@ const getTypesInternoHandler = async (req,res) => {
 };
 
  
-const getPokemonHandler = async (req,res) => {
-    const {name} = req.query ;
-    const results = name ? await getPokemonByName(name) : await getPokemones();
-    if(results.error){
-
-      return res.status(404).json(results);
-    }
-    return  res.status(200).json(results);
-
- };
 
 
- const postPokemonHandler = async (req,res) => {
-  
-    try {
-       const {name,image,hp,attack,defense,speed,height,weight,types} = req.body;
-       const nameMinuscula = name.toLowerCase();
 
-       const  newPokemon = await postPokemones(nameMinuscula,image,hp,attack,defense,speed,height,weight,types); 
-       res.status(201).json(newPokemon); 
-    }catch(error){
- 
-      res.status(400).json({error:error.message});
-    }
- 
- };
+
  
 
- const getPokemonesByIdHandler = async (req,res) => {
 
-    const {id} = req.params;
-    const source = isNaN(id) ? "bdd" : "api" ;
 
-    try {     
-       const pokemones = await getPokemonesById(id,source); 
-       res.status(200).json(pokemones); 
-    }catch(error){
- 
-      res.status(400).json({error:error.message});
-    }
- 
- };
+
  
  const getPokemonTypesHandler = async (req,res) => {
    //const {type} = req.query ;
