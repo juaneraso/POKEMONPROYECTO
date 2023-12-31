@@ -14,11 +14,12 @@ const CardsContainer = () => {
   const dispatch = useDispatch();   
 
   useEffect(() => {
-    // Actualiza el título del documento usando la API del navegador
+
     dispatch(getTypes())
   },[dispatch]);
 
 
+   
 
 //Estad global
  const pokemones = useSelector(state=>state.pokemones);               
@@ -37,6 +38,13 @@ const CardsContainer = () => {
 //   //event.preventDefault(); 
 //   dispatch(cleanSearch()); //limpiar estado    
 // };
+
+
+ useEffect(() => {
+  setCurrentPage(1);
+}, [selectedType, showCreated, sortOrder, searchResults]);
+
+
 
 
 
@@ -80,11 +88,6 @@ console.log(getTipos);
        return filteredData;
    }
  };
- 
- useEffect(() => {
-  setCurrentPage(1);
-}, [selectedType, showCreated, sortOrder, searchResults]);
-
 
 
  const filteredAndSortedData = getFilteredAndSortedData();
