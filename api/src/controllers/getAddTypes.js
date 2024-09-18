@@ -44,6 +44,6 @@ const getPokemonTypes = async () => {
 
 // Llamar a la función para guardar los tipos de pokémon en la base de datos
 
- //getAddTypes();
+ getAddTypes();
 
 module.exports = getAddTypes;
